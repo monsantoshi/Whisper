@@ -83,7 +83,7 @@ Pillow==9.5.0
 pinecone-client==2.2.2
 pkginfo==1.9.6
 plotly==5.15.0
-postgrest==0.10.6
+postgrest==0.15.0
 posthog==3.0.1
 protobuf==4.23.4
 psycopg2-binary==2.9.6
