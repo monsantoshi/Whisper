@@ -21,6 +21,8 @@ def create_db():
                 transcription_summary TEXT,
                 sentiment_label TEXT,
                 sentiment_report TEXT,
+                prev_ai_research TEXT,
+                fact_check TEXT,
                 user_id INTEGER,
                 FOREIGN KEY(user_id) REFERENCES Users(user_id)
             );
@@ -75,14 +77,14 @@ def get_user_id(email):
         return result[0] if result else None
 
 
-def insert_into_transcripts(user_id, file_name, transcription, transcription_summary, sentiment_label, sentiment_report):
+def insert_into_transcripts(user_id, file_name, transcription, transcription_summary, sentiment_label, sentiment_report, prev_ai_research, fact_check):
     with sqlite3.connect('MASTER.db') as conn:
         cursor = conn.cursor()
         query = """
-            INSERT INTO Transcripts (user_id, file_name, transcription, transcription_summary, sentiment_label, sentiment_report) 
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO Transcripts (user_id, file_name, transcription, transcription_summary, sentiment_label, sentiment_report, prev_ai_research, fact_check) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         """
-        cursor.execute(query, (user_id, file_name, transcription, transcription_summary, sentiment_label, sentiment_report))
+        cursor.execute(query, (user_id, file_name, transcription, transcription_summary, sentiment_label, sentiment_report, prev_ai_research, fact_check))
         conn.commit()
 
 
@@ -119,6 +121,16 @@ def get_sentiment_report_by_id(selection):
     with sqlite3.connect('MASTER.db') as conn:
         cursor = conn.cursor()
         cursor.execute("SELECT sentiment_report FROM Transcripts WHERE transcript_id = ?", (id,))
+        result = cursor.fetchone()
+        if result is not None: return result[0]
+        else: return "No transcript found for the given id"
+
+
+def get_fact_check_by_id(selection):
+    id = int(selection.split(' - ')[0])
+    with sqlite3.connect('MASTER.db') as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT fact_check FROM Transcripts WHERE transcript_id = ?", (id,))
         result = cursor.fetchone()
         if result is not None: return result[0]
         else: return "No transcript found for the given id"
