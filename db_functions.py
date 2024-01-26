@@ -176,3 +176,6 @@ def insert_audio(file_path, transcript_id):
         """, (os.path.basename(file_path), audio_data, transcript_id, st.session_state.user_id))
         conn.commit()
 
+
+def insert_message():
+    pass
