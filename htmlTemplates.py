@@ -33,3 +33,12 @@ bot_template = '''
     <div class="message">{{MSG}}</div>
 </div>
 '''
+
+user_template = '''
+<div class="chat-message user">
+    <div class="avatar">
+        <img src="https://resizing.flixster.com/ocuc8yjm8Fu5UK5Ze8lbdp58m9Y=/300x300/v2/https://flxt.tmsimg.com/assets/p11759522_i_h9_aa.jpg">
+    </div>    
+    <div class="message">{{MSG}}</div>
+</div>
+'''
